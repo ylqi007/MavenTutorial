@@ -259,9 +259,76 @@ maven自动解决依赖冲突问题能力，会按照自己的原则，进行重
 
 
 ### 4. 扩展构建管理和插件配置
+#### 1. 构建概念
+项目构建是指将**源代码、依赖库和资源文件等转换成可执行或可部署的应用程序**的过程，在这个过程中包括编译源代码、链接依赖库、打包和部署等多个步骤。
+![](images/项目构建过程.png)
+
+#### 2. 主动触发场景
+* 重新编译: 编译不充分, 部分文件没有被编译!
+* 打包: 独立部署到外部服务器软件,打包部署
+* 部署本地或者私服仓库: 将 Maven 工程加入到本地或者私服仓库,供其他工程使用
+
+#### 3. 命令方式构建
+语法: `mvn 构建命令 构建命令...` (即可以有多条构建命令，比如 `mvn clean package install`)
+![](images/Maven构建命令.png)
+
+```shell
+mvn install
+...
+[INFO] --- install:3.1.2:install (default-install) @ project-05-pom-build ---
+[INFO] Installing /Users/ylqi007/Work/MavenTutorial/project-05-pom-build/pom.xml to /Users/ylqi007/.m2/repository/com/ylqi007/project-05-pom-build/1.0-SNAPSHOT/project-05-pom-build-1.0-SNAPSHOT.pom
+[INFO] Installing /Users/ylqi007/Work/MavenTutorial/project-05-pom-build/target/project-05-pom-build-1.0-SNAPSHOT.jar to /Users/ylqi007/.m2/repository/com/ylqi007/project-05-pom-build/1.0-SNAPSHOT/project-05-pom-build-1.0-SNAPSHOT.jar
+```
+
+⚠️注意:
+1. 执行 `mvn` 命令需要进入到项目的根路径，即 `pom.xml` 所在的目录，也即是与 `pom.xml` 平级
+2. 部署必须是 jar 包形式，war 包应该放到 服务器软件 中执行，比如 tomcat
+
+除了**命令构建的方式**之外，还有**可视化方式构建**。
+
+#### 4. 构建命令周期
+构建命令周期：简化出发构建命令过程！
+
+**构建生命周期**可以理解成是一组固定构建命令的有序集合，触发周期后的命令，会自动触发周期前的命令！也是一种简化构建的思路!
+* **清理周期**：主要是对项目编译生成文件进行清理
+   * 包含命令：`clean`
+* **默认周期**：定义了真正构件时所需要执行的所有步骤，它是生命周期中最核心的部分
+   * 包含命令：`compile - test - package - install / deploy`
+* 报告周期
+   * 包含命令：`site`
+   * 打包: `mvn clean package`
+   * 部署到本地仓库: `mvn clean install`
+
+**最佳使用方案:**
+```
+打包: mvn clean package
+重新编译: mvn clean compile
+本地部署: mvn clean install
+```
+
+#### 5. 周期，命令和插件
+* 周期 → 包含若干命令→包含若干插件!
+* 使用周期命令构建，简化构建过程！
+* 最终进行构建的是插件！
+
+插件配置:
+```xml
+<build>
+   <!-- jdk17 和 war包版本插件不匹配 -->
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>3.2.2</version>
+        </plugin>
+    </plugins>
+</build>
+```
 
 
 ## Reference
+* ✅ 尚硅谷 B站视频: [尚硅谷新版SSM框架全套视频教程，Spring6+SpringBoot3最新SSM企业级开发](https://www.bilibili.com/video/BV1AP411s7D7/?spm_id_from=333.788.player.switch&vd_source=bd5e1cdd20d83feef8e77a781b33f083&p=1)
 * ✅ https://www.wolai.com/fbnhGx8eE9JfZugFpbCWmC
 * https://maven.apache.org/what-is-maven.html
-* GitHub: https://github.com/xftxyz2001/atguigu-ssm/tree/main (很完整)
+* Maven plugins: https://maven.apache.org/plugins/
+* ✅ GitHub: https://github.com/xftxyz2001/atguigu-ssm/tree/main (很完整)
