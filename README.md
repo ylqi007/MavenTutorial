@@ -36,3 +36,8 @@
     ```
 3. 修改 pom.xml 文件，将 `packaging` 设置为 `war`
 4. 刷新 Maven 结构，`webapp` 上会多一个小蓝点
+
+### 2. 通过插件创建 Java EE 工程
+1. 安装 `JBLJavaToWeb` 插件
+2. 创建 Java SE Maven 工程
+3. 选择相应的 module，右击，使用 JBL 就能快速补全 Web 项目
