@@ -12,3 +12,27 @@
     └── test
         └── java
 ```
+
+
+## Java EE 工程, 即 Java Web 工程
+### 1. 手动创建 Java SE 工程，然后转换为 Java EE 工程
+1. 创建一个 Java SE Maven 工程
+2. 补全文件结构
+    ```
+    ➜  project-02-javaee git:(main) ✗ tree -L 5
+    .
+    ├── pom.xml
+    └── src
+        ├── main
+        │   ├── java
+        │   │    └── com
+        │   │        └── ylqi007
+        │   ├── resources
+        │   └── webapp (要补全的部分: webapp, WEB-INF, web.xml)
+        │       └── WEB-INF
+        │            └── web.xml
+        └── test
+            └── java
+    ```
+3. 修改 pom.xml 文件，将 `packaging` 设置为 `war`
+4. 刷新 Maven 结构，`webapp` 上会多一个小蓝点
