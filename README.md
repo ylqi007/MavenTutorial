@@ -325,7 +325,8 @@ mvn install
 </build>
 ```
 
-## Maven 的继承和聚合特性
+
+## 四、Maven 的继承和聚合特性
 ### 1. 继承
 1. Maven 的继承概念: **Maven 继承**是指在 Maven 的项目中，让一个项目从另一个项目中继承配置信息的机制。继承可以让我们在多个项目中共享同一配置信息，简化项目的管理和维护工作。
 2. Maven 继承作用: 在父工程中统一管理项目中的依赖信息,进行统一版本管理!
@@ -440,12 +441,51 @@ mvn install
 4. 聚合演示: 通过触发父工程构建命令、引发所有子模块构建！产生反应堆！
 
 
+## 五、Maven 实战案例
+### 1. 项目需求和结构分析
+![](images/Maven实战项目需求和结构分析.png)
+* 需求案例：搭建一个电商平台项目，该平台包括用户服务、订单服务、通用工具模块等。
+* 项目架构：
+  * 用户服务：负责处理用户相关的逻辑，例如用户信息的管理、用户注册、登录等。
+  * 订单服务：负责处理订单相关的逻辑，例如订单的创建、订单支付、退货、订单查看等。
+  * 通用模块：负责存储其他服务需要通用工具类，其他服务依赖此模块。
+* 服务依赖：
+  * `user-service` (1.0.1, `war`)
+    * spring-context 6.0.6
+    * spring-core 6.0.6
+    * spring-beans 6.0.6
+    * jackson-databind / jackson-core / jackson-annotations 2.15.0
+  * `order-service` (1.0.1, `war`)
+    * shiro-core 1.10.1
+    * spring-context 6.0.6
+    * spring-core 6.0.6
+    * spring-beans 6.0.6
+  * `common-library` (1.0.1, `jar`) 需要将该package安装到本地仓库，然后 `user-service` and `order-service` 会引用这两个
+    * commons-io 2.11.0
+
+### 2. 项目搭建和统一构建
+
+Install `common-library` to local repository
+```shell
+[INFO] --- install:3.1.2:install (default-install) @ common-library ---
+[INFO] Installing /Users/ylqi007/Work/MavenTutorial/project-07-micro-shop/common-library/pom.xml to /Users/ylqi007/.m2/repository/com/ylqi007/common-library/1.0.1/common-library-1.0.1.pom
+[INFO] Installing /Users/ylqi007/Work/MavenTutorial/project-07-micro-shop/common-library/target/common-library-1.0.1.jar to /Users/ylqi007/.m2/repository/com/ylqi007/common-library/1.0.1/common-library-1.0.1.jar
+```
+将 `common-library` 安装到本地仓库后，`user-service` and `order-service` 就可以像引用其他第三方依赖的方式引用 `common-library`。
+
+
+## 六、Maven 核心掌握
+![](images/Maven核心掌握总结.png)
+
+
 ## Reference
 * ✅ 尚硅谷 B站视频: [尚硅谷新版SSM框架全套视频教程，Spring6+SpringBoot3最新SSM企业级开发](https://www.bilibili.com/video/BV1AP411s7D7/?spm_id_from=333.788.player.switch&vd_source=bd5e1cdd20d83feef8e77a781b33f083&p=1)
 * ✅ https://www.wolai.com/fbnhGx8eE9JfZugFpbCWmC
-* https://maven.apache.org/what-is-maven.html
+* 课件: https://www.wolai.com/v5Kuct5ZtPeVBk4NBUGBWF
+* [Apache Maven Project](https://maven.apache.org/what-is-maven.html)
 * Maven plugins: https://maven.apache.org/plugins/
-* ✅ GitHub: https://github.com/xftxyz2001/atguigu-ssm/tree/main (很完整)
+* ✅ GitHub: https://github.com/xftxyz2001/atguigu-ssm/tree/main (很完整，包括笔记和代码)
+* [Where is Maven's settings.xml located on Mac OS?](https://stackoverflow.com/questions/3792842/where-is-mavens-settings-xml-located-on-mac-os)
 
 
 ## Setup GitHub Repository
@@ -466,5 +506,3 @@ git remote add origin git@github.com:ylqi007/MavenTutorial01.git
 git branch -M main
 git push -u origin main
 ```
-
-
