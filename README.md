@@ -1,4 +1,4 @@
-# MavenTutorial: 高效构建Java应用 -- Maven入门和进阶
+# MavenTutorial: 高效构建Java应用 -- Maven入门和进阶 (from atguigu-ssm)
 
 ## 一、Maven简介和快速入门
 ### 1. Maven 介绍
@@ -479,14 +479,15 @@ Install `common-library` to local repository
 
 
 ## Reference
-* ✅ 尚硅谷 B站视频: [尚硅谷新版SSM框架全套视频教程，Spring6+SpringBoot3最新SSM企业级开发](https://www.bilibili.com/video/BV1AP411s7D7/?spm_id_from=333.788.player.switch&vd_source=bd5e1cdd20d83feef8e77a781b33f083&p=1)
-* ✅ https://www.wolai.com/fbnhGx8eE9JfZugFpbCWmC
-* 课件: https://www.wolai.com/v5Kuct5ZtPeVBk4NBUGBWF
-* [Apache Maven Project](https://maven.apache.org/what-is-maven.html)
-* Maven plugins: https://maven.apache.org/plugins/
-* ✅ GitHub: https://github.com/xftxyz2001/atguigu-ssm/tree/main (很完整，包括笔记和代码)
-* ✅ [Apache Maven Project: Frequently Asked Technical Questions](https://maven.apache.org/general.html#encoding-warning)
+* ✅ 尚硅谷 B站视频: [尚硅谷新版SSM框架全套视频教程，Spring6+SpringBoot3最新SSM企业级开发](https://www.bilibili.com/video/BV1AP411s7D7/)
+* ✅ 全套课件: https://www.wolai.com/fbnhGx8eE9JfZugFpbCWmC
+* ✅ Maven 课件: https://www.wolai.com/v5Kuct5ZtPeVBk4NBUGBWF
+* GitHub: https://github.com/xftxyz2001/atguigu-ssm/tree/main (很完整，包括笔记和代码)
+* ✅ [Apache Maven Project](https://maven.apache.org/what-is-maven.html)
+* [Apache Maven Project: Available Plugins](https://maven.apache.org/plugins/)
+* [Apache Maven Project: Frequently Asked Technical Questions](https://maven.apache.org/general.html#encoding-warning)
 * [Where is Maven's settings.xml located on Mac OS?](https://stackoverflow.com/questions/3792842/where-is-mavens-settings-xml-located-on-mac-os)
+* 我的 Notion 中也有 Maven 相关笔记
 
 
 ## Setup GitHub Repository
