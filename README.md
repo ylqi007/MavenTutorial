@@ -485,6 +485,7 @@ Install `common-library` to local repository
 * [Apache Maven Project](https://maven.apache.org/what-is-maven.html)
 * Maven plugins: https://maven.apache.org/plugins/
 * ✅ GitHub: https://github.com/xftxyz2001/atguigu-ssm/tree/main (很完整，包括笔记和代码)
+* ✅ [Apache Maven Project: Frequently Asked Technical Questions](https://maven.apache.org/general.html#encoding-warning)
 * [Where is Maven's settings.xml located on Mac OS?](https://stackoverflow.com/questions/3792842/where-is-mavens-settings-xml-located-on-mac-os)
 
 
