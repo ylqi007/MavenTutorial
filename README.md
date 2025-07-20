@@ -325,6 +325,120 @@ mvn install
 </build>
 ```
 
+## Maven 的继承和聚合特性
+### 1. 继承
+1. Maven 的继承概念: **Maven 继承**是指在 Maven 的项目中，让一个项目从另一个项目中继承配置信息的机制。继承可以让我们在多个项目中共享同一配置信息，简化项目的管理和维护工作。
+2. Maven 继承作用: 在父工程中统一管理项目中的依赖信息,进行统一版本管理!
+   * 通过在父工程中为整个项目维护依赖信息的组合既保证了整个项目使用规范、准确的 jar 包；又能够将以往的经验沉淀下来，节约时间和精力。
+3. 继承语法
+   * 父工程
+      ```xml
+      <groupId>com.atguigu.maven</groupId>
+      <artifactId>pro03-maven-parent</artifactId>
+      <version>1.0-SNAPSHOT</version>
+         <!-- 当前工程作为父工程，它要去管理子工程，所以打包方式必须是 pom -->
+      <packaging>pom</packaging>
+      ```
+   * 子工程
+      ```xml
+      <!-- 使用parent标签指定当前工程的父工程 -->
+      <parent>
+        <!-- 父工程的坐标 -->
+        <groupId>com.atguigu.maven</groupId>
+        <artifactId>pro03-maven-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </parent>
+      
+      <!-- 子工程的坐标 -->
+      <!-- 如果子工程坐标中的groupId和version与父工程一致，那么可以省略 -->
+      <!-- <groupId>com.atguigu.maven</groupId> -->
+      <artifactId>pro04-maven-module</artifactId>
+      <!-- <version>1.0-SNAPSHOT</version> -->
+      ```
+4. 父工程依赖统一管理
+   * 父工程声明版本
+      ```xml
+      <!-- 使用dependencyManagement标签配置对依赖的管理 -->
+      <!-- 被管理的依赖并没有真正被引入到工程 -->
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>4.0.0.RELEASE</version>
+          </dependency>
+          <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>4.0.0.RELEASE</version>
+          </dependency>
+          <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>4.0.0.RELEASE</version>
+          </dependency>
+          <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-expression</artifactId>
+            <version>4.0.0.RELEASE</version>
+          </dependency>
+          <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>4.0.0.RELEASE</version>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
+      ```
+   * 子工程引用版本
+      ```xml
+      <!-- 子工程引用父工程中的依赖信息时，可以把版本号去掉。  -->
+      <!-- 把版本号去掉就表示子工程中这个依赖的版本由父工程决定。 -->
+      <!-- 具体来说是由父工程的dependencyManagement来决定。 -->
+      <dependencies>
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-core</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-beans</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-expression</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-aop</artifactId>
+        </dependency>
+      </dependencies>
+      ```
+
+### 2. 聚合
+1. 聚合概念: **Maven 聚合**是指将多个项目组织到一个父级项目中，通过触发父工程的构建,统一按顺序触发子工程构建的过程!!
+2. 聚合作用
+   1. 统一管理子项目构建：通过聚合，可以将多个子项目组织在一起，方便管理和维护。
+   2. 优化构建顺序：通过聚合，可以对多个项目进行顺序控制，避免出现构建依赖混乱导致构建失败的情况。
+3. 聚合语法: 父项目中包含的子项目列表。
+   ````xml
+   <project>
+     <groupId>com.example</groupId>
+     <artifactId>parent-project</artifactId>
+     <packaging>pom</packaging>
+     <version>1.0.0</version>
+     <modules>
+       <module>child-project1</module>
+       <module>child-project2</module>
+     </modules>
+   </project>
+   ```
+4. 聚合演示: 通过触发父工程构建命令、引发所有子模块构建！产生反应堆！
+
 
 ## Reference
 * ✅ 尚硅谷 B站视频: [尚硅谷新版SSM框架全套视频教程，Spring6+SpringBoot3最新SSM企业级开发](https://www.bilibili.com/video/BV1AP411s7D7/?spm_id_from=333.788.player.switch&vd_source=bd5e1cdd20d83feef8e77a781b33f083&p=1)
@@ -332,3 +446,25 @@ mvn install
 * https://maven.apache.org/what-is-maven.html
 * Maven plugins: https://maven.apache.org/plugins/
 * ✅ GitHub: https://github.com/xftxyz2001/atguigu-ssm/tree/main (很完整)
+
+
+## Setup GitHub Repository
+### Create a new repository on the command line
+```shell
+echo "# MavenTutorial01" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin git@github.com:ylqi007/MavenTutorial01.git
+git push -u origin main
+```
+
+### Push an existing repository from the command line
+```shell
+git remote add origin git@github.com:ylqi007/MavenTutorial01.git
+git branch -M main
+git push -u origin main
+```
+
+
